@@ -144,3 +144,28 @@ function hashKey(s: string): number {
 
 // Re-export JEV for direct use
 export { computeJev };
+
+// --- Fleet canary (Issue #16) ---
+// fnv1a-64("café Δ 日本語") === 0x024a555471370b18d
+// The substrate-rng FNV-1a basis 0xcbf29ce484222325; this package
+// participates in the cross-language contract via the local fnv1a_64.
+
+const FNV1A_BASIS = 0xcbf29ce484222325n;
+const FNV1A_PRIME = 0x100000001b3n;
+
+export function fnv1a_64(s: string): bigint {
+  let h = FNV1A_BASIS;
+  const bytes = new TextEncoder().encode(s);
+  for (const b of bytes) {
+    h ^= BigInt(b);
+    h = (h * FNV1A_PRIME) & 0xffffffffffffffffn;
+  }
+  return h;
+}
+
+export const FLEET_CANARY: bigint = 0x024a555471370b18dn;
+export const FLEET_CANARY_INPUT = "café Δ 日本語";
+
+export function verify_canary(): boolean {
+  return fnv1a_64(FLEET_CANARY_INPUT) === FLEET_CANARY;
+}

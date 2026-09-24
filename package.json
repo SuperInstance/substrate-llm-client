@@ -1,1 +1,17 @@
-{ "name": "substrate-llm-client","version":"0.0.1","description":"Multi-provider LLM client with JEV gating + Pincher cache","main":"src/index.ts","type":"module","scripts":{"test":"node --test src/tests/*.test.ts"},"keywords":["substrate","llm","jev","pincher"],"license":"MIT" }
+{
+  "name": "substrate-llm-client",
+  "version": "0.0.2",
+  "description": "Multi-provider LLM client with JEV gating + Pincher cache",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-strip-types --test src/tests/*.test.ts"
+  },
+  "keywords": [
+    "substrate",
+    "llm",
+    "jev",
+    "pincher"
+  ],
+  "license": "MIT"
+}
